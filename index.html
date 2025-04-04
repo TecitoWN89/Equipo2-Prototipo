@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lienzo</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Hoja de estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="container">
+    <!-- Formulario de Registro -->
+    <div class="form-container sign-up">
+      <form>
+        <img src="img/lienzo-logo.png" alt="Lienzo Logo" class="logo">
+        <h1>Crea una cuenta</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <span>o usa tu email para registrarte</span>
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <!-- Botón de registro con redirección -->
+        <button type="button" onclick="window.location.href='home.html'">Registrate</button>
+      </form>
+    </div>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="form-container sign-in">
+      <form>
+        <img src="img/lienzo-logo.png" alt="Lienzo Logo" class="logo">
+        <h1>Iniciar Sesión</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <span>o usa tu email y contraseña</span>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+        <!-- Botón de inicio de sesión con redirección -->
+        <button type="button" onclick="window.location.href='home.html'">Iniciar Sesión</button>
+      </form>
+    </div>
+
+    <!-- Paneles de alternancia -->
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>¡Bienvenido de nuevo!</h1>
+          <p>Introduce tu información para iniciar sesión</p>
+          <!-- Botón alterno para iniciar sesión con redirección -->
+          <button type="button" onclick="window.location.href='home.html'">Inicia Sesión</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>¡Hola, Jugador!</h1>
+          <p>Introduce tu información para registrarte</p>
+          <!-- Botón alterno para registrarse con redirección -->
+          <button type="button" onclick="window.location.href='home.html'">Registrate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

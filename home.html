@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lienzo - Inicio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* RESET BÁSICO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .logo img {
+      height: 40px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: #fff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ccc;
+    }
+
+    /* SECCIÓN ROJA (HERO) */
+    .hero {
+      background-color: #c00;
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    .hero .btn {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .hero .btn:hover {
+      background-color: #eee;
+    }
+
+    /* SECCIÓN "¿QUÉ ES LIENZO?" */
+    .que-es-lienzo {
+      background-color: #fff;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 40px 20px;
+      border-radius: 8px;
+    }
+    .que-es-lienzo h2 {
+      font-size: 1.8em;
+      color: #c00;
+      margin-bottom: 20px;
+    }
+    .que-es-lienzo p {
+      text-align: justify;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <!-- Ajusta la ruta a tu logo -->
+      <img src="img/lienzo-logo.png" alt="Logo Lienzo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pixelxpixel.html">Pixel x Pixel</a></li>
+        <li><a href="login.html">Registrarse / Iniciar Sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- SECCIÓN "¿QUÉ ES LIENZO?" -->
+  <section class="que-es-lienzo">
+    <h2>¿Qué es Lienzo?</h2>
+    <p>
+      Lienzo es un estudio de desarrollo de videojuegos ubicado en Chihuahua, México.
+      Creamos experiencias únicas que llegan a jugadores de todas las partes del mundo.
+      Nuestro juego más reciente ha sido <strong>Mulaka</strong> y el juego insignia de fantasía
+      <strong>Hunter's Legacy</strong>.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© Lienzo. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

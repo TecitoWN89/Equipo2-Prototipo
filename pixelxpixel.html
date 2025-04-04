@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pixel x Pixel - Lienzo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ================================
+       RESET & ESTILOS BÁSICOS
+       ================================ */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ================================
+       HEADER
+       ================================ */
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .logo img {
+      height: 40px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: #fff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ccc;
+    }
+
+    /* ================================
+       SECCIÓN ROJA (HERO) - Pixel x Pixel
+       ================================ */
+    .hero-pixel {
+      background-color: #c00;
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero-pixel h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .plataformas img {
+      height: 30px;
+      margin: 0 5px;
+      vertical-align: middle;
+    }
+
+    /* ================================
+       SECCIONES EN FONDO BLANCO
+       ================================ */
+    .section-white {
+      background-color: #fff;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 40px 20px;
+      border-radius: 8px;
+    }
+    .section-white h2 {
+      font-size: 1.8em;
+      color: #c00;
+      margin-bottom: 20px;
+    }
+    .section-white p {
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* ================================
+       SECCIÓN ROJA - GRID DE PÍXELES
+       ================================ */
+    .grid-section {
+      background-color: #c00;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .grid-section h2 {
+      font-size: 1.8em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    /* Contenedor que ubica la imagen detrás de los píxeles */
+    .image-container {
+      position: relative;
+      width: 100%; /* Que ocupe todo el ancho disponible */
+      max-width: 800px; /* Limitar ancho máximo */
+      margin: 0 auto;
+      overflow: hidden; /* Esconde cualquier parte fuera del contenedor */
+    }
+    .hidden-image {
+      display: none;
+      width: 100%;
+      height: auto;
+    }
+    /* Capa de píxeles */
+    .pixel-grid {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      grid-template-rows: repeat(4, 1fr);
+    }
+    .pixel {
+      background-color: #000; 
+      cursor: pointer;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2em;
+      transition: background-color 0.3s, opacity 0.3s;
+    }
+    .pixel:hover {
+      /* Efecto hover con color sólido */
+      background-color: #444; /* Un gris oscuro opaco */
+    }
+    .btn-adivinar {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn-adivinar:hover {
+      background-color: #eee;
+    }
+
+    /* Contador de boletos B */
+    .ticket-counter {
+      text-align: center;
+      margin: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* ================================
+       FOOTER
+       ================================ */
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+
+    /* ================================
+       MODAL PARA PREGUNTAS
+       ================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none; /* oculto por defecto */
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 400px;
+      width: 90%;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+    }
+    .modal h3 {
+      margin-bottom: 15px;
+    }
+    .modal .options {
+      text-align: left;
+      margin: 15px 0;
+    }
+    .modal .options label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .submit-answer-btn {
+      background-color: #c00;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .submit-answer-btn:hover {
+      background-color: #a00;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================
+       HEADER
+       ================================ -->
+  <header>
+    <div class="logo">
+      <!-- Ajusta la ruta a tu logo si es diferente -->
+      <img src="img/lienzo-logo.png" alt="Logo Lienzo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pixelxpixel.html">Pixel x Pixel</a></li>
+        <li><a href="login.html">Registrarse / Iniciar Sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ================================
+       SECCIÓN ROJA (HERO)
+       ================================ -->
+  <section class="hero-pixel">
+    <h1>Pixel x Pixel</h1>
+    <div class="plataformas">
+      <!-- Ejemplo de logotipos de plataformas -->
+      <img src="https://via.placeholder.com/80x30?text=Switch" alt="Switch">
+      <img src="https://via.placeholder.com/80x30?text=Steam" alt="Steam">
+      <img src="https://via.placeholder.com/80x30?text=Xbox" alt="Xbox">
+      <img src="https://via.placeholder.com/80x30?text=PS4" alt="PS4">
+    </div>
+  </section>
+
+  <!-- ================================
+       ¿QUÉ ES PIXEL X PIXEL?
+       ================================ -->
+  <section class="section-white">
+    <h2>¿Qué es Pixel x Pixel?</h2>
+    <p>
+      Es un juego de adivinanza interactiva donde la imagen se revela
+      pixel a pixel. El objetivo es adivinar de qué imagen se trata antes de que 
+      se descubra por completo.
+    </p>
+  </section>
+
+  <!-- ================================
+       ¿CÓMO SE JUEGA?
+       ================================ -->
+  <section class="section-white">
+    <h2>¿Cómo se juega?</h2>
+    <p>
+      Cada turno, el jugador elige un pixel para revelar y responde una pregunta.
+      Si la responde correctamente, se quita el recuadro. Al final, si adivina
+      la imagen antes de que se revele por completo, gana un premio especial (Premio A).
+      <br><br>
+      Si responde correctamente las preguntas pero no adivina a tiempo,
+      gana un boleto para el sorteo del Premio B.
+    </p>
+  </section>
+
+<!-- ================================
+     SECCIÓN ROJA - GRID DE PÍXELES
+     ================================ -->
+<section class="grid-section">
+  <h2>Elige un pixel</h2>
+
+  <!-- Contenedor de la imagen y los píxeles superpuestos -->
+  <div class="image-container">
+    <!-- Reemplazo del <img> por un <canvas> -->
+    <canvas id="imageCanvas" width="800" height="800"></canvas>
+
+    <!-- Capa de píxeles en posición absoluta -->
+    <div class="pixel-grid" id="pixelGrid">
+      <!-- 16 píxeles (4x4). Ajusta a tu gusto. -->
+      <div class="pixel" data-index="0">?</div>
+      <div class="pixel" data-index="1">?</div>
+      <div class="pixel" data-index="2">?</div>
+      <div class="pixel" data-index="3">?</div>
+      <div class="pixel" data-index="4">?</div>
+      <div class="pixel" data-index="5">?</div>
+      <div class="pixel" data-index="6">?</div>
+      <div class="pixel" data-index="7">?</div>
+      <div class="pixel" data-index="8">?</div>
+      <div class="pixel" data-index="9">?</div>
+      <div class="pixel" data-index="10">?</div>
+      <div class="pixel" data-index="11">?</div>
+      <div class="pixel" data-index="12">?</div>
+      <div class="pixel" data-index="13">?</div>
+      <div class="pixel" data-index="14">?</div>
+      <div class="pixel" data-index="15">?</div>
+    </div>
+  </div>
+
+  <!-- Botón para adivinar la imagen -->
+  <button class="btn-adivinar" id="guessButton">Adivina la imagen</button>
+
+  <!-- Contador de boletos B -->
+  <div class="ticket-counter">
+    Boletos B: <span id="ticketCount">0</span>
+  </div>
+</section>
+
+<!-- ================================
+     SCRIPT PARA CARGAR LA IMAGEN EN EL CANVAS
+     ================================ -->
+<script>
+  const canvas = document.getElementById('imageCanvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.src = 'img/YoshiGordo.png'; // Ruta de tu imagen
+  img.crossOrigin = "anonymous";
+  function resizeCanvas() {
+      const container = document.querySelector('.image-container');
+      const width = container.clientWidth;
+      const height = container.clientWidth; // Mantener cuadrado
+      canvas.width = width;
+      canvas.height = height;
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
+  }
+  
+  img.onload = () => {
+      resizeCanvas();
+  };
+  window.addEventListener('resize', resizeCanvas);
+</script>
+
+
+  <!-- ================================
+       FOOTER
+       ================================ -->
+  <footer>
+    <p>© Lienzo. All rights reserved.</p>
+  </footer>
+
+  <!-- ================================
+       MODAL DE PREGUNTAS
+       ================================ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <h3 id="questionText">Pregunta</h3>
+      <div class="options" id="optionsContainer"></div>
+      <button class="submit-answer-btn" id="submitAnswer">Responder</button>
+    </div>
+  </div>
+
+  <script>
+    /***************************************************
+     * PREGUNTAS DE OPCIÓN MÚLTIPLE
+     ***************************************************/
+    const questions = [
+      {
+        text: "¿En qué estado de México se encuentra el estudio Lienzo?",
+        options: ["Chihuahua", "Jalisco", "Puebla", "Yucatán"],
+        correct: 0
+      },
+      {
+        text: "¿Cómo se llama uno de los juegos más famosos de Lienzo?",
+        options: ["Mulaka", "Zelda", "Halo", "Call of Duty"],
+        correct: 0
+      },
+      {
+        text: "¿Qué género de videojuegos desarrolla Lienzo?",
+        options: ["RPG de acción", "Simuladores de vuelo", "Juegos de cartas", "Juegos de deportes extremos"],
+        correct: 0
+      }
+      // Agrega más preguntas si deseas
+    ];
+
+    /***************************************************
+     * REFERENCIAS AL DOM
+     ***************************************************/
+    const pixelGrid = document.getElementById('pixelGrid');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeModalBtn = document.getElementById('closeModal');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const submitAnswerBtn = document.getElementById('submitAnswer');
+    const guessButton = document.getElementById('guessButton');
+    const ticketCountSpan = document.getElementById('ticketCount');
+
+    let currentPixel = null;
+    let revealedCount = 0;
+    let ticketCount = 0; // Contador de boletos B
+    const totalPixels = 16; // Ajusta si cambias la cantidad
+
+    /***************************************************
+     * MOSTRAR EL MODAL CON UNA PREGUNTA
+     ***************************************************/
+    function showQuestionModal(pixel) {
+      // Seleccionamos una pregunta aleatoria
+      const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+      // Llenamos el modal con la info
+      questionText.textContent = randomQuestion.text;
+      optionsContainer.innerHTML = "";
+      randomQuestion.options.forEach((option, i) => {
+        const label = document.createElement('label');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'questionOption';
+        radio.value = i;
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(" " + option));
+        optionsContainer.appendChild(label);
+      });
+
+      // Guardamos la respuesta correcta en un dataset
+      modalOverlay.dataset.correctIndex = randomQuestion.correct;
+
+      // Asignamos el pixel actual
+      currentPixel = pixel;
+
+      // Mostramos el modal
+      modalOverlay.style.display = 'flex';
+    }
+
+    /***************************************************
+     * CERRAR MODAL
+     ***************************************************/
+    function closeModal() {
+      modalOverlay.style.display = 'none';
+    }
+    closeModalBtn.addEventListener('click', closeModal);
+
+    /***************************************************
+     * VERIFICAR RESPUESTA
+     ***************************************************/
+    submitAnswerBtn.addEventListener('click', () => {
+      const selectedOption = document.querySelector('input[name="questionOption"]:checked');
+      if (!selectedOption) {
+        alert("Por favor selecciona una respuesta.");
+        return;
+      }
+      const userAnswer = parseInt(selectedOption.value, 10);
+      const correctIndex = parseInt(modalOverlay.dataset.correctIndex, 10);
+
+      if (userAnswer === correctIndex) {
+        // Respuesta correcta
+        revealedCount++;
+        // Incrementamos el contador de boletos B
+        ticketCount++;
+        ticketCountSpan.textContent = ticketCount;
+
+        // Quitamos el pixel para revelar la parte de la imagen
+        currentPixel.style.opacity = 0;
+        currentPixel.style.pointerEvents = "none";
+
+        alert("¡Respuesta correcta! Has ganado un boleto para el sorteo del Premio B.");
+      } else {
+        alert("Respuesta incorrecta. ¡Intenta con otro píxel!");
+      }
+      closeModal();
+    });
+
+    /***************************************************
+     * ADIVINAR LA IMAGEN COMPLETA
+     ***************************************************/
+    guessButton.addEventListener('click', () => {
+      const guess = prompt("¿Cuál crees que sea la imagen oculta?");
+      if (!guess) return;
+      const guessLower = guess.trim().toLowerCase();
+
+      // Ajusta la palabra clave a tu preferencia
+      if (guessLower.includes("mulaka")) {
+        if (revealedCount < totalPixels) {
+          alert("¡Felicidades! Ganaste el Premio A por adivinar antes de revelar toda la imagen.");
+        } else {
+          alert("Adivinaste, pero la imagen ya estaba totalmente revelada. Conservas tus boletos B.");
+        }
+      } else {
+        alert("No es la respuesta correcta. ¡Sigue intentando!");
+      }
+    });
+
+    /***************************************************
+     * ASIGNAR EVENTOS A CADA PIXEL
+     ***************************************************/
+    const pixels = pixelGrid.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+      pixel.addEventListener('click', () => {
+        // Si ya está "revelado" (opacity = 0), no hacemos nada
+        if (pixel.style.opacity === "0") return;
+        showQuestionModal(pixel);
+      });
+    });
+  </script>
+</body>
+</html>
